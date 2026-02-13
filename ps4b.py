@@ -90,7 +90,12 @@ class PlaintextMessage(Message):
                 or generated randomly using self.generate_pad() if pad is None)
             the ciphertext (string, input_text encrypted using the pad)
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        super().__init__(input_text)
+        if pad != None:
+            self._pad = pad[:]
+        else:
+            self._pad = self.generate_pad()[:]
+        self._ciphertext = self.apply_pad(self._pad)
 
     def __repr__(self):
         """
@@ -119,7 +124,10 @@ class PlaintextMessage(Message):
 
         Returns: (list of integers) a COPY of your pad
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._gpad = []
+        for i in len(self._input_text):
+            self._gpad.append(random.randint(0, 109))
+        return self._gpad[:]
 
     def get_ciphertext(self):
         """
@@ -127,7 +135,7 @@ class PlaintextMessage(Message):
 
         Returns: (string) the ciphertext
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        return str(self._ciphertext)
 
     def change_pad(self, new_pad):
         """

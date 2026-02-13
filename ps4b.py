@@ -16,7 +16,7 @@ class Message(object):
         a Message object has one attribute:
             the message text
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._input_text = input_text
 
     def __repr__(self):
         """
@@ -33,7 +33,7 @@ class Message(object):
 
         Returns: (string) the message text
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        return str(self._input_text)
 
     def shift_char(self, char, shift):
         """
@@ -45,7 +45,15 @@ class Message(object):
 
         Returns: (string) the shifted character with ASCII value in the range [32, 126]
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._char = char
+        self._char_order = ord(self._char)
+        self._shift = shift
+        self._char_new_order = self._char_order + self._shift
+        if self._char_new_order > 126:
+            self._char_new_order = 31 + abs(self._char_new_order - 126) % 95
+        elif self._char_new_order < 32:
+            self._char_new_order = 127 - abs(self._char_new_order - 32) % 95
+        return chr(self._char_new_order)
 
     def apply_pad(self, pad):
         """
@@ -58,7 +66,13 @@ class Message(object):
 
         Returns: (string) The ciphertext produced using the one time pad
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._pad = pad
+        self._ciphertext = ""
+        for i in range(len(self._pad)):
+            self._ciphertext += self.shift_char(
+                self._input_text[i], self._pad[i]
+            )
+        return self._ciphertext
 
 
 class PlaintextMessage(Message):

@@ -117,9 +117,9 @@ class PlaintextMessage(Message):
         Returns: (list of integers) the new one time pad
         """
         self._gpad = []
-        for i in len(self._input_text):
+        for i in range(len(self._input_text)):
             self._gpad.append(random.randint(0, 109))
-        return self._gpad[:]
+        return self._gpad
 
     def get_pad(self):
         """
@@ -147,7 +147,8 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._pad = new_pad
+        self._ciphertext = self.apply_pad(self._pad)
 
 
 class EncryptedMessage(Message):

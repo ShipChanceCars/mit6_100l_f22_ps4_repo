@@ -161,7 +161,8 @@ class EncryptedMessage(Message):
         an EncryptedMessage object inherits from Message. It has one attribute:
             the message text (ciphertext)
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        super().__init__(input_text)
+        self._ciphertext = input_text
 
     def __repr__(self):
         """
@@ -181,4 +182,8 @@ class EncryptedMessage(Message):
 
         Returns: (PlaintextMessage) the decrypted message (containing the pad)
         """
-        raise NotImplementedError  # delete this line and replace with your code here
+        self._pad = pad
+        self._neg_pad = [-x for x in self._pad]
+        self._plaintext = self.apply_pad(self._neg_pad)
+        self._pm = PlaintextMessage(self._plaintext, self._pad)
+        return self._pm

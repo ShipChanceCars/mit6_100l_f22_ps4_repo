@@ -27,4 +27,8 @@ decrypting the ciphertext with each pad and counting the number of real words in
 is achieved by comparing each word in the decrypted output with the large list of English
 words in the separate file. The correct pad is assumed to be the one which produces the 
 biggest number of valid words. If a tie occurs, the last pad that returns the maximum
-number of English words is chosen.
+number of English words is chosen. The function decode_story is now working. It invokes
+get_story_string to get the ciphertext from the text file, then get_story_pads grabs the
+list of one time pads from the text file. The penultimate step is the call to 
+decrypt_message_try_pads function implemented before. It returns PlaintextMessage object.
+The last step is extracting the string repersentation from the object and returning it.

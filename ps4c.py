@@ -111,11 +111,16 @@ def decode_story():
     Returns: (string) the decoded story
 
     """
-    raise NotImplementedError  # delete this line and replace with your code here
+    story_ciphertext = get_story_string()
+    pads = get_story_pads()
+    enc_msg = ps4b.EncryptedMessage(story_ciphertext)
+    plt_msg = decrypt_message_try_pads(enc_msg, pads)
+    plt_msg_str = plt_msg.get_text()
+    return plt_msg_str
 
 
 if __name__ == "__main__":
-    # # Uncomment these lines to try running decode_story()
-    # story = decode_story()
-    # print("Decoded story: ", story)
-    pass
+    # Uncomment these lines to try running decode_story()
+    story = decode_story()
+    print("Decoded story: ", story)
+    # pass
